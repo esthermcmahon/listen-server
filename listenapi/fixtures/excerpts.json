@@ -1,0 +1,13 @@
+
+[
+    {
+        "model": "listenapi.excerpt",
+        "pk": 1,
+        "fields": {
+            "musician": 1,
+            "name": "Mozart 5",
+            "done": 0
+        }
+    }
+
+]

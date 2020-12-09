@@ -1,0 +1,10 @@
+[
+    {
+        "model": "listenapi.musician",
+        "pk": 1,
+        "fields": {
+            "bio": "",
+            "user": 1
+        }
+    }
+]

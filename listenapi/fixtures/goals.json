@@ -1,0 +1,23 @@
+[
+    {
+        "model": "listenapi.goal",
+        "pk": 1,
+        "fields": {
+            "recording": 1,
+            "category": 1,
+            "goal": "The shift to A is not in tune",
+            "action": "Slowly 5 times to check posture and listening, then repeat until 5x in a row perfect"
+        }
+    },
+    {
+        "model": "listenapi.goal",
+        "pk": 2,
+        "fields": {
+            "recording": 1,
+            "category": 2,
+            "goal": "16ths are not steady",
+            "action": "Practice with 4 different rhythms"
+        }
+    }
+
+]
