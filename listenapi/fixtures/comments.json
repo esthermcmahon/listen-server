@@ -1,0 +1,14 @@
+
+[
+    {
+        "model": "listenapi.comment",
+        "pk": 1,
+        "fields": {
+            "recording": 1,
+            "author": 1,
+            "content": "try practicing the 16th notes with varied rhythms",
+            "date": "2020-11-09"
+        }
+    }
+
+]

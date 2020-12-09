@@ -1,0 +1,23 @@
+[
+    {
+        "model": "listenapi.recording",
+        "pk": 1,
+        "fields": {
+            "excerpt": 1,
+            "audio": "urlblobstring",
+            "date": "2020-11-09",
+            "label": "Moz 5 take 1"
+        }
+    },
+    {
+        "model": "listenapi.recording",
+        "pk": 2,
+        "fields": {
+            "excerpt": 1,
+            "audio": "urlblobstring",
+            "date": "2020-12-09",
+            "label": "Moz 5 take 2"
+        }
+    }
+
+]

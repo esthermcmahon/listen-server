@@ -1,0 +1,13 @@
+[
+    {
+        "model": "listenapi.connection",
+        "pk": 1,
+        "fields": {
+            "practicer": 1,
+            "follower": 1,
+            "created_on": "2020-11-10",
+            "ended_on": null
+        }
+    }
+
+]
