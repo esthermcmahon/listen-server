@@ -15,7 +15,24 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import url, include
+from listenapi.views import register_user, login_user
+from listenapi.views import Categories, Comments, Connections, Excerpts, Goals, Musicians, Recordings
+from rest_framework import routers
+
+router = routers.DefaultRouter(trailing_slash=False)
+router.register(r'categories', Categories, 'category')
+router.register(r'comments', Comments, 'comment')
+router.register(r'connections', Connections, 'connection')
+router.register(r'excerpts', Excerpts, 'excerpt')
+router.register(r'goals', Goals, 'goal')
+router.register(r'musicians', Musicians, 'musician')
+router.register(r'recordings', Recordings, 'recording')
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # path('admin/', admin.site.urls), #not needed?
+    path('', include(router.urls)),
+    path('register', register_user),
+    path('login', login_user),
+    path('api-auth', include('rest_framework.urls', namespace='rest_framework'))
 ]
