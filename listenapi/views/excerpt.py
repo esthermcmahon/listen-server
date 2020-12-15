@@ -80,7 +80,7 @@ class Excerpts(ViewSet):
             new_excerpt.name = request.data["name"]
             new_excerpt.done = request.data["done"]
 
-            related_musician = Musician.objects.get(pk=request.data["musician"])
+            related_musician = Musician.objects.get(user=request.auth.user)
             new_excerpt.musician = related_musician
 
             new_excerpt.save()
@@ -139,7 +139,7 @@ class Excerpts(ViewSet):
         excerpt.name = request.data["name"]
         excerpt.done = request.data["done"]
 
-        related_musician = Musician.objects.get(pk=request.data["musician"])
+        related_musician = Musician.objects.get(user=request.auth.user)
         excerpt.musician = related_musician
         
         excerpt.save()

@@ -117,6 +117,8 @@ class Connections(ViewSet):
 
         connections = Connection.objects.all()
 
+        # to do: filter by logged in user?
+
         serializer = ConnectionSerializer(connections, many=True, context={'request': request})
             
         return Response(serializer.data)
