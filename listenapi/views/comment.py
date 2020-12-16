@@ -210,9 +210,9 @@ class Comments(ViewSet):
         recording = self.request.query_params.get('recording', None)
 
         if recording is not None:
-            recordings = recordings.filter(recording_id = recording)
-
-        
+            recording = Recording.objects.get(pk = recording)
+            comments = recording.recording_comment.all()
+            
 
         serializer = CommentSerializer(
             comments, many=True, context={'request': request})
