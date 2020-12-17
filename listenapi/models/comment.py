@@ -10,4 +10,11 @@ class Comment(models.Model):
     content = models.CharField(max_length=500)
     
 
-    
+    @property
+    def created_by_current_user(self):
+        return self.__created_by_current_user
+
+    @created_by_current_user.setter
+    def created_by_current_user(self, value):
+        self.__created_by_current_user = value
+

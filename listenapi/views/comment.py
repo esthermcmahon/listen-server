@@ -11,6 +11,7 @@ from rest_framework import status
 from listenapi.models import Recording, Musician, Comment, Excerpt
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.parsers import MultiPartParser, FormParser
+from datetime import date
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -44,7 +45,7 @@ class CommentSerializer(serializers.ModelSerializer):
     recording = RecordingSerializer(many=False)
     class Meta:
         model= Comment
-        fields= ('id', 'author', 'recording', 'date', 'content')
+        fields= ('id', 'author', 'recording', 'date', 'content', 'created_by_current_user')
         depth= 2
 
 class Comments(ViewSet):
@@ -105,7 +106,7 @@ class Comments(ViewSet):
         try:
             new_comment = Comment()
             new_comment.content = request.data["content"]
-            new_comment.date = request.data["date"]
+            new_comment.date = date.today()
 
             related_recording = Recording.objects.get(pk=request.data["recording"])
             new_comment.recording = related_recording
@@ -204,7 +205,15 @@ class Comments(ViewSet):
             ]
         """
         comments = Comment.objects.all()
-        recordings = Recording.objects.all()
+        
+        for comment in comments:
+
+            comment.created_by_current_user = None
+
+            if comment.author.id == request.auth.user.id:
+                comment.created_by_current_user = True
+            else:
+                comment.created_by_current_user = False
 
         # Support filtering
         recording = self.request.query_params.get('recording', None)
