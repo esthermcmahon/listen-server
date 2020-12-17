@@ -12,6 +12,7 @@ from datetime import date
 from listenapi.models import Musician, Connection
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.parsers import MultiPartParser, FormParser
+from datetime import date
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -94,16 +95,13 @@ class Connections(ViewSet):
         """
         try:
             new_connection = Connection()
-            new_connection.created_on = request.data['created_on']
-            new_connection.ended_on = request.data['ended_on']
+            new_connection.created_on = date.today()
+        
 
             related_practicer = Musician.objects.get(pk=request.data["practicer"])
             new_connection.practicer = related_practicer
 
-            # user = Musician.objects.get(user=request.auth.user)
-            # new_connection.follower = user
-
-            related_follower = Musician.objects.get(pk=request.data['follower'])
+            related_follower = Musician.objects.get(user=request.auth.user)
             new_connection.follower = related_follower
 
             new_connection.save()
