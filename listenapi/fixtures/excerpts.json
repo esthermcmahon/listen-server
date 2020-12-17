@@ -8,6 +8,28 @@
             "name": "Mozart 5",
             "done": 0
         }
+    },
+    {   "model": "listenapi.excerpt",
+        "pk": 2,
+        "fields": {
+            "name": "Don Juan",
+            "musician": 1,
+            "done": 0
+        }
+        
+        
+    },
+    {   "model": "listenapi.excerpt",
+        "pk": 3,
+        "fields": {
+            "name": "Beethoven 5",
+            "musician": 2,
+            "done": 0
+        }
+        
+        
     }
 
 ]
+
+
