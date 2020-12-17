@@ -11,6 +11,7 @@ from rest_framework import status
 from listenapi.models import Recording, Musician, Comment, Excerpt
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.parsers import MultiPartParser, FormParser
+from datetime import date
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -105,7 +106,7 @@ class Comments(ViewSet):
         try:
             new_comment = Comment()
             new_comment.content = request.data["content"]
-            new_comment.date = request.data["date"]
+            new_comment.date = date.today()
 
             related_recording = Recording.objects.get(pk=request.data["recording"])
             new_comment.recording = related_recording
