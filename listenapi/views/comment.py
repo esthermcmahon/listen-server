@@ -45,7 +45,7 @@ class CommentSerializer(serializers.ModelSerializer):
     recording = RecordingSerializer(many=False)
     class Meta:
         model= Comment
-        fields= ('id', 'author', 'recording', 'date', 'content')
+        fields= ('id', 'author', 'recording', 'date', 'content', 'created_by_current_user')
         depth= 2
 
 class Comments(ViewSet):
@@ -205,7 +205,15 @@ class Comments(ViewSet):
             ]
         """
         comments = Comment.objects.all()
-        recordings = Recording.objects.all()
+        
+        for comment in comments:
+
+            comment.created_by_current_user = None
+
+            if comment.author.id == request.auth.user.id:
+                comment.created_by_current_user = True
+            else:
+                comment.created_by_current_user = False
 
         # Support filtering
         recording = self.request.query_params.get('recording', None)
