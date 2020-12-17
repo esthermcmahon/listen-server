@@ -30,7 +30,7 @@ class ExcerptSerializer(serializers.ModelSerializer):
     musician = MusicianSerializer(many=False)
     class Meta:
         model = Excerpt
-        fields = ('id', 'name', 'musician', 'done')
+        fields = ('id', 'name', 'musician', 'done', 'created_by_current_user')
         depth = 2
 
 class Excerpts(ViewSet):
@@ -195,6 +195,15 @@ class Excerpts(ViewSet):
             ]
         """
         excerpts = Excerpt.objects.all()
+
+        for excerpt in excerpts:
+
+            excerpt.created_by_current_user = None
+
+            if excerpt.musician.id == request.auth.user.id:
+                excerpt.created_by_current_user = True
+            else:
+                excerpt.created_by_current_user = False
 
         # Support filtering
         musician = self.request.query_params.get('musician', None)

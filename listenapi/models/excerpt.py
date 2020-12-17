@@ -9,4 +9,10 @@ class Excerpt(models.Model):
     musician = models.ForeignKey("Musician", on_delete=models.SET_NULL, null=True, related_name="practicer")
 
 
-    
+    @property
+    def created_by_current_user(self):
+        return self.__created_by_current_user
+
+    @created_by_current_user.setter
+    def created_by_current_user(self, value):
+        self.__created_by_current_user = value
