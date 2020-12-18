@@ -135,7 +135,7 @@ class Comments(ViewSet):
         """
         comment = Comment.objects.get(pk=pk)
         comment.content = request.data["content"]
-        comment.date = request.data["date"]
+        comment.date = date.today()
 
         related_recording = Recording.objects.get(pk=request.data["recording"])
         comment.recording = related_recording
