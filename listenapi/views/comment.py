@@ -221,6 +221,14 @@ class Comments(ViewSet):
         if recording is not None:
             recording = Recording.objects.get(pk = recording)
             comments = recording.recording_comment.all()
+
+            for comment in comments:
+                comment.created_by_current_user = None
+
+                if comment.author.id == request.auth.user.id:
+                    comment.created_by_current_user = True
+                else:
+                    comment.created_by_current_user = False
             
 
         serializer = CommentSerializer(

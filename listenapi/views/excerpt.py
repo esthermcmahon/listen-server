@@ -120,6 +120,10 @@ class Excerpts(ViewSet):
 
         try:
             excerpt = Excerpt.objects.get(pk=pk)
+            if excerpt.musician.id == request.auth.user.id:
+                excerpt.created_by_current_user = True
+            else:
+                excerpt.created_by_current_user = False
             serializer = ExcerptSerializer(excerpt, context={'request': request})
             return Response(serializer.data)
         except Excerpt.DoesNotExist as ex:
