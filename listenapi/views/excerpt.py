@@ -222,6 +222,49 @@ class Excerpts(ViewSet):
         return Response(serializer.data)
 
         
-        # To do: 'done' custom action
+    #'done' custom action
+    @action(methods=['put'], detail=True)
+    def done(self, request, pk=None):
+        """Manage marking an excerpt as done"""
 
-    
+        if request.method == 'PUT':
+            excerpt = Excerpt.objects.get(pk=pk)
+
+            try:
+                excerpt.done = True
+                excerpt.save()
+
+                serializer = ExcerptSerializer(excerpt, context={'request': request})
+                return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
+
+            except Excerpt.DoesNotExist:
+                return Response(
+                    {'message': 'Excerpt does not exist'},
+                    status = status.HTTP_400_BAD_REQUEST
+                )
+
+    #'undone' custom action
+    @action(methods=['put'], detail=True)
+    def undone(self, request, pk=None):
+        """Manage un-done excerpt"""
+
+        if request.method == 'PUT':
+            excerpt = Excerpt.objects.get(pk=pk)
+
+            try:
+                excerpt.done = False
+                excerpt.save()
+
+                serializer = ExcerptSerializer(excerpt, context={'request': request})
+                return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
+
+            except Excerpt.DoesNotExist:
+                return Response(
+                    {'message': 'Excerpt does not exist'},
+                    status = status.HTTP_400_BAD_REQUEST
+                )
+
+
+
+
+        
