@@ -221,11 +221,35 @@ class Comments(ViewSet):
         if recording is not None:
             recording = Recording.objects.get(pk = recording)
             comments = recording.recording_comment.all()
+
+            for comment in comments:
+                comment.created_by_current_user = None
+
+                if comment.author.id == request.auth.user.id:
+                    comment.created_by_current_user = True
+                else:
+                    comment.created_by_current_user = False
             
 
         serializer = CommentSerializer(
             comments, many=True, context={'request': request})
         return Response(serializer.data)
+
+    def retrieve(self, request, pk=None):
+        """
+        retrieve single comment by id
+        """
+
+        try:
+            comment = Comment.objects.get(pk=pk)
+            if comment.author.id == request.auth.user.id:
+                comment.created_by_current_user = True
+            else:
+                comment.created_by_current_user = False
+            serializer = CommentSerializer(comment, context={'request': request})
+            return Response(serializer.data)
+        except Excerpt.DoesNotExist as ex:
+            return HttpResponseServerError(ex, status = status.HTTP_404_NOT_FOUND)
 
         
 
