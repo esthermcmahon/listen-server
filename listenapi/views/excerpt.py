@@ -211,11 +211,18 @@ class Excerpts(ViewSet):
 
         # Support filtering
         musician = self.request.query_params.get('musician', None)
-
-        if musician is not None:
-            musician = Musician.objects.get(id = musician)
-            excerpts = excerpts.filter(musician=musician)
         
+        if musician is not None:
+            musician = Musician.objects.get(pk=musician)
+            excerpts = excerpts.filter(musician=musician) 
+
+            for excerpt in excerpts:
+                excerpt.created_by_current_user = None
+
+                if excerpt.musician.id == request.auth.user.id:
+                    excerpt.created_by_current_user = True
+                else:
+                    excerpt.created_by_current_user = False
 
         serializer = ExcerptSerializer(
             excerpts, many=True, context={'request': request})
