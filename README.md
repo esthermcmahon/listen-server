@@ -11,7 +11,7 @@ git clone URL(paste the copied url)
 cd listen-server
 pipenv shell
 pipenv install django autopep8 pylint djangorestframework django-cors-headers 
-seed_data.sh
+./seed_data.sh
 python manage.py runserver
 ```
 
