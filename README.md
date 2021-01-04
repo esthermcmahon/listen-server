@@ -15,7 +15,7 @@ pipenv install django autopep8 pylint djangorestframework django-cors-headers
 python manage.py runserver
 ```
 
-This is the back end of this project. The back end repository is [here](https://github.com/esthersanders/listen-client)
+This is the back end of this project. The front end repository is [here](https://github.com/esthersanders/listen-client)
 
 ## Technologies Used
 * Python
