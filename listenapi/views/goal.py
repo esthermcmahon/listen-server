@@ -251,7 +251,7 @@ class Goals(ViewSet):
             goals = goals.filter(recording=recording)
         
         serializer = GoalSerializer(
-            goals, many=True, context={'request': request})
+            reversed(goals), many=True, context={'request': request})
         return Response(serializer.data)
 
         
