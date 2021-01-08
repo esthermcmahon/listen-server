@@ -232,7 +232,7 @@ class Comments(ViewSet):
             
 
         serializer = CommentSerializer(
-            comments, many=True, context={'request': request})
+            reversed(comments), many=True, context={'request': request})
         return Response(serializer.data)
 
     def retrieve(self, request, pk=None):

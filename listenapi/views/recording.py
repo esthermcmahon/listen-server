@@ -217,7 +217,7 @@ class Recordings(ViewSet):
      
 
         serializer = RecordingSerializer(
-            recordings, many=True, context={'request': request})
+            reversed(recordings), many=True, context={'request': request})
         return Response(serializer.data)
 
         
