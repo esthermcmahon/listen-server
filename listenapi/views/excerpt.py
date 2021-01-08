@@ -225,7 +225,7 @@ class Excerpts(ViewSet):
                     excerpt.created_by_current_user = False
 
         serializer = ExcerptSerializer(
-            excerpts, many=True, context={'request': request})
+            reversed(excerpts), many=True, context={'request': request})
         return Response(serializer.data)
 
         
