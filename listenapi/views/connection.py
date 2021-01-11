@@ -120,6 +120,24 @@ class Connections(ViewSet):
         serializer = ConnectionSerializer(connections, many=True, context={'request': request})
             
         return Response(serializer.data)
+
+    def destroy(self, request, pk=None):
+        """
+        @api {DELETE} /connections/:id DELETE connection
+        
+        """
+        try:
+            connection = Connection.objects.get(pk=pk)
+            connection.delete()
+
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+        except Connection.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+
+        except Exception as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
         
 
     @action(methods = ['get', 'put'], detail=True)
